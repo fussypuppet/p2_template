@@ -28,6 +28,9 @@ app.get('/', (req, res) => {
     res.render('index');
 })
 
+//include auth controller
+app.use('/auth', require('./controllers/auth')); // use the auth.js file in the auth folder when dealing with auth routes)
+
 app.listen(process.env.PORT || 3000, function() {
     console.log("Listening to port ${process.env.PORT}");
 })
