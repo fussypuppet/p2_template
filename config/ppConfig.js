@@ -4,15 +4,15 @@ const LocalStrategy = require('passport-local').Strategy;
 const db = require('../models');
 
 // serialize user
-passport.serializeUser(function(user, cb) {  //cb is not a special word.  can also use 'callback'
-    cb(null, user.id);
+passport.serializeUser(function(user, callback) { 
+    callback(null, user.id);
 })
 
 // deserialized version
-passport.deserializeUser(function(id, cb) {
+passport.deserializeUser(function(id, callback) {
     db.user.findByPk(id).then(function(user){
-        cb(null, user);
-    }).catch(cb);
+        callback(null, user);
+    }).catch(callback);
 })
 
 // passport local config

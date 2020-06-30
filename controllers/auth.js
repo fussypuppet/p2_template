@@ -3,8 +3,7 @@ const router = express.Router();
 
 const db = require('../models');
 const flash = require('flash');
-const passport; //need to complete configuration
-
+const passport = require('../config/ppConfig');
 
 router.get('/register', function(req,res){
     res.render('auth/register');

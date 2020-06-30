@@ -1,3 +1,6 @@
+// MAY NEED TO CREATE THIS, RENAME IT TO SOMETHING ELSE, THEN MODEL:CREATE, THEN DELETE THAT AND MOVE THIS BACK I N
+
+
 //user model declaration
 //define use case // somehow makes sure data types are the same across the entire app
 'use strict'
@@ -10,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
         email: {
             type: DataTypes.STRING,
             validate: {
-                isEmail{
+                isEmail: {
                     msg: 'Invalid email address'
                 }
             }
@@ -23,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
                     msg: "Name must be between 1 and 99 characters"
                 }
             }
-        }
+        },
         password: {
             type: DataTypes.STRING,
             validate: {
