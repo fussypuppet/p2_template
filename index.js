@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
     res.render('index');
 })
 
-app.get('/profile', function(req,res){
+app.get('/profile', function(req,res){  //2nd argument isLoggedIn?********
     res.render('profile', {test: "another test"});
 })
 

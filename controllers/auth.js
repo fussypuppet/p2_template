@@ -21,7 +21,10 @@ router.post('/register', function(req,res){
         //if user was created
         if (created){
             console.log("user created!");
-            res.redirect('/');
+            passport.authenticate('local', {
+                successRedirect: '/profile',
+                successFlash: 'Thanks for signing up!'
+            })(req,res);
         } else {
             console.log("User email already exists");
             req.flash('error', 'Error: email already exists');
@@ -47,23 +50,23 @@ router.post('/login', function(req,res,next){           // our first use of keyw
         //if no user is authenitcated
         if (!user){
             req.flash('error', "invalid username or password");
-            req.session.save(function(){
+            //req.session.save(function(){
                 return res.redirect('/auth/login');
-            })
+            //})
             //save our user session no username
             //redirect user to try logging in again
         }
         if (error) {
             return next(error);
         }
-        req.login(function(user, error ){
+        req.login(user, function(error ){
             if (error) next(error);  // ooh fancy single-line if statement!
             req.flash('success!', 'You are validated and logged in');
             req.session.save(function(){
                 return res.redirect('/');
             })
         })
-    })
+    })(req, res, next);
 })
 
 router.post('/login', passport.authenticate('local', {

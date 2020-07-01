@@ -43,7 +43,7 @@ module.exports = function(sequelize, DataTypes) {
             //hash user-inputted pw before record creation
             beforeCreate: function(createdUser, options){  // cannot use arrow functions here since 'this' keyword is used behind the scenes
                 if (createdUser && createdUser.password){
-                    let hash = bcrypt.hashSync() // can pass it a salt(string) or 'rounds', a number of times to run the hash function
+                    let hash = bcrypt.hashSync(createdUser.password, 12) // can pass it a salt(string) or 'rounds', a number of times to run the hash function
                     createdUser.password = hash;
                 }
             }
@@ -55,10 +55,10 @@ module.exports = function(sequelize, DataTypes) {
         //TO DO: any user associations you want
     }
     user.prototype.validPassword = function(passwordTyped) {
-        return bcrypt.compareSync(passwordType, this.password);
+        return bcrypt.compareSync(passwordTyped, this.password);
     }
     // remove password before any serialization of User object
-    user.prototype.toUSON = function() {
+    user.prototype.toJSON = function() {
         let userData = this.get();
         delete userData.password;
         return userData;
